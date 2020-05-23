@@ -1,20 +1,38 @@
 #include <Arduino.h>
-#define PIN_G 5
-#define PIN_B 6
-#define PIN_R 9
-int r, g, b;
-void setup() 
-{
-pinMode(PIN_G, OUTPUT);
-pinMode(PIN_B, OUTPUT);
-pinMode(PIN_R, OUTPUT);
+#define BUTTON 2
+
+
+int stanPrzycisku;
+int poprzedniStanPrzycisku = LOW;
+unsigned long poprzedniCzas =0;
+unsigned int liczba_nacisniec =0;
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(BUTTON,INPUT);
 }
 
 
-void loop() 
+void loop()
 {
-analogWrite(PIN_R, rand());
-analogWrite(PIN_G, rand());
-analogWrite(PIN_B, rand());
-delay(1000);
+ 
+  int odczyt = digitalRead(BUTTON);
+
+  if (odczyt != poprzedniStanPrzycisku)
+  {
+    poprzedniCzas = millis();
+  }
+
+  if ((millis() - poprzedniCzas) > 50){
+    if (odczyt!= stanPrzycisku){
+      stanPrzycisku = odczyt;
+      if (stanPrzycisku == HIGH){
+        liczba_nacisniec++;
+
+        Serial.print("Liczba nacisciec przycisku: ");
+        Serial.println(liczba_nacisniec);
+      }
+    }
+  }
+  poprzedniStanPrzycisku= odczyt;
 } 
