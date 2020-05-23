@@ -13,6 +13,23 @@ Numer albumu: 53371<br/>
 Grupa studencka: WEL18EX1N1<br/>
 
 # Odpowiedzi do pytań z instrukcji
-W jaki sposób można rozbudować funkcjonalność programu w przypadku gdy liczba naciśnięć przycisku przekroczy określoną ilość?
+<b>W jaki sposób można rozbudować funkcjonalność programu w przypadku gdy liczba naciśnięć przycisku przekroczy określoną ilość?
+<b/>
 <br/>
 Dodać do w warunku if (linia w codzie 25) dodatkowy warunek && liczba_nacisniec =< [podać liczbe lub zapisać do zmiennej globalnej określająca ile razy można wcisnąć przycisk]
+
+<b> W jaki sposób można zwiększyć liczbę obsługiwanych poleceń oraz liczbę obsługiwanych parametrów?
+<b/>
+<br/>
+Dodać do naszej logiki biznesowej kolejny wymyśloną komende którą chcemy obsłużyć 
+<br/>
+else if (!strcmp(paramStr, "[nazwa naszej nowej komendy]")) 
+<br.>
+{
+    <br/>
+    do your business logic :)
+    <br/>
+}
+<br/>
+
+Najlepiej zastosować tutaj wzorzec projektowy command do lepszego zarządzania kodem w przyszłości i pozybycia się dodawania kolejnych warunków else if aby nie łamać 2 zasady solid open/closed
