@@ -8,9 +8,9 @@ Data: 23.05.2020 r.
 
 # Informacje o studencie
 
-Imię i nazwisko studenta: Imię Nazwisko  
-Numer albumu: 12345  
-Grupa studencka: WELE18X15N1
+Imię i nazwisko studenta: Andrzej Szamowski
+Numer albumu: 72728  
+Grupa studencka: WEL18EX1N1
 
 # Odpowiedzi do pytań z instrukcji
 ...
