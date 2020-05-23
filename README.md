@@ -9,9 +9,8 @@ Data: 23.05.2020 r.
 # Informacje o studencie
 
 Imię i nazwisko studenta: Imię Nazwisko  
-Numer albumu: 12345  
+Numer albumu: 72721 
 Grupa studencka: WELE18X15N1
 
 # Odpowiedzi do pytań z instrukcji
-aaaa
-bbb
+1
