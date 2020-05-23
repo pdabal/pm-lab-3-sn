@@ -1,6 +1,7 @@
 #include <Arduino.h> 
 #define BUTTON 2  
 
+
 int stanPrzycisku; 
 int poprzedniStanPrzycisku = LOW; 
 unsigned long poprzedniCzas = 0; 
@@ -11,7 +12,7 @@ void setup() {
   pinMode(BUTTON, INPUT); 
 } 
 
-  
+
 
 void loop() { 
   int odczyt = digitalRead(BUTTON); 
