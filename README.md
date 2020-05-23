@@ -14,7 +14,6 @@ Grupa studencka: WEL18EX1N1
 
 # Odpowiedzi do pytań z instrukcji
 Zadanie 3.2.2 - Dodać do w warunku if (linia w kodzie 25) dodatkowy warunek && liczba_nacisniec =< [podać liczbe lub zapisać do zmiennej globalnej określająca ile razy można wcisnąć przycisk]
-
 To przypadek gdy chcemy zablokować dalsze wciskanie przycisku, a gdy chcemy poinformować użytkownika do środku ifa (linia w kodzie 25) dodać nowy if ze sprawdzeniem czy przekroczono ilość wciśnięć i pointormowąc użytkownika do terminala a następnie wyczyścić zmienną która sprawdzala ilość określonych wciśnięć
 
 
