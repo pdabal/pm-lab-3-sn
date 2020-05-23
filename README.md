@@ -8,9 +8,9 @@ Data: 23.05.2020 r.
 
 # Informacje o studencie
 
-Imię i nazwisko studenta: Łukasz Drozd
-Numer albumu: 53371
-Grupa studencka: WEL18EX1N1
+Imię i nazwisko studenta: Łukasz Drozd<br/>
+Numer albumu: 53371<br/>
+Grupa studencka: WEL18EX1N1<br/>
 
 # Odpowiedzi do pytań z instrukcji
 ...
