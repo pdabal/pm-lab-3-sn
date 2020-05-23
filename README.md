@@ -13,13 +13,14 @@ Numer albumu: 53371<br/>
 Grupa studencka: WEL18EX1N1<br/>
 
 # Odpowiedzi do pytań z instrukcji
-# W jaki sposób można rozbudować funkcjonalność programu w przypadku gdy liczba naciśnięć przycisku przekroczy określoną ilość?
+<b>W jaki sposób można rozbudować funkcjonalność programu w przypadku gdy liczba naciśnięć przycisku przekroczy określoną ilość?</b>
+
 <br/>
 Dodać do w warunku if (linia w kodzie 25) dodatkowy warunek && liczba_nacisniec =< [podać liczbe lub zapisać do zmiennej globalnej określająca ile razy można wcisnąć przycisk] 
 
 To przypadek gdy chcemy zablokować dalsze wciskanie przycisku, a gdy chcemy poinformować użytkownika do środku ifa (linia w kodzie 25) dodać nowy if ze sprawdzeniem czy przekroczono ilość wciśnięć i pointormowąc użytkownika do terminala a następnie wyczyścić zmienną która sprawdzala ilość określonych wciśnięć
 
-# W jaki sposób można zwiększyć liczbę obsługiwanych poleceń oraz liczbę obsługiwanych parametrów?
+<b>W jaki sposób można zwiększyć liczbę obsługiwanych poleceń oraz liczbę obsługiwanych parametrów?</b>
 
 <br/>
 Dodać do naszej logiki biznesowej kolejny wymyśloną komende którą chcemy obsłużyć 
