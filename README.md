@@ -8,9 +8,9 @@ Data: 23.05.2020 r.
 
 # Informacje o studencie
 
-Imię i nazwisko studenta: Imię Nazwisko  
-Numer albumu: 12345  
-Grupa studencka: WELE18X15N1
+Imię i nazwisko studenta: Damian Kaczor 
+Numer albumu: 72699  
+Grupa studencka: WELE18X1N1
 
 # Odpowiedzi do pytań z instrukcji
 ...
