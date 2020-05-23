@@ -1,133 +1,59 @@
 #include <Arduino.h>
-#include <SPI.h>
+#include <Wire.h>
 
-#define SPI_C5_PIN 10
+#define ADXL345_ADDR 0x53
+#define ID_REG 0x00
+#define POWER_CTL_REG 0x2D
+#define DATA_FORMAT_REG 0x31
 
-typedef int32_t BMP280_S32_t;
-typedef uint32_t BMP280_U32_t;
+int16_t aX = 0, aY = 0, aZ = 0;
+double dX = 0, dY = 0, dZ = 0;
 
-uint8_t configReg = 0, ctrlReg = 0;
-
-uint8_t device_id =0;
-uint8_t rawdata[32];
-uint32_t rawVal = 0;
-uint32_t degC =0, press =0;
-double ddegC = 0, dpress = 0;
-
-
-uint16_t dig_T1 =0;
-int16_t dig_T2=0, dig_T3 = 0;
-uint16_t dig_P1 =0;
-int16_t dig_P2 =0, dig_P3 =0, dig_P4 =0, dig_P5 =0;
-int16_t dig_P6 =0, dig_P7 =0, dig_P8 =0, dig_P9 =0;
-
-BMP280_S32_t t_fine;
-
-BMP280_S32_t bmp280_compensate_T_int32(BMP280_S32_t adc_T);
-BMP280_U32_t bmp280_compensate_P_int32(BMP280_S32_t adc_T);
-
-
-void setup() {
+void setup()
+{
   Serial.begin(9600);
   Serial.setTimeout(4000);
 
-  SPI.begin();
-  pinMode(SPI_C5_PIN, OUTPUT);
-  digitalWrite(SPI_C5_PIN, HIGH);
+  Wire.begin();
 
-  digitalWrite(SPI_C5_PIN, LOW);
-  SPI.transfer(0xD0);
-  device_id = SPI.transfer(0x00);
-  digitalWrite(SPI_C5_PIN, HIGH);
-  Serial.print("Device ID: "); Serial.println(device_id, HEX);
+  Wire.beginTransmission(ADXL345_ADDR);
+  Wire.write(ID_REG);
+  Wire.endTransmission();
+  Wire.requestFrom(ADXL345_ADDR, (uint8_t)0x01, (uint8_t)1);
 
-  digitalWrite(SPI_C5_PIN, LOW);
-  SPI.transfer(0x88);
-  for (int i = 0; i < 24; i++) {
-    rawdata[i] = SPI.transfer(0x00);
-    }
-  digitalWrite(SPI_C5_PIN, HIGH);
+  Serial.print("Device ID: ");
+  Serial.println(Wire.read());
 
-  dig_T1 = (((uint16_t)rawdata[1]) <<  8) | ((uint16_t)rawdata[0]);
-  dig_T2 = (((int16_t)rawdata[3]) <<  8) | ((int16_t)rawdata[2]);
-  dig_T3 = (((int16_t)rawdata[5]) <<  8) | ((int16_t)rawdata[4]);
-  dig_P1 = (((int16_t)rawdata[7]) <<  8) | ((int16_t)rawdata[6]);
-  dig_P2 = (((int16_t)rawdata[9]) <<  8) | ((int16_t)rawdata[8]);
-  dig_P3 = (((int16_t)rawdata[11]) <<  8) | ((int16_t)rawdata[10]);
-  dig_P4 = (((int16_t)rawdata[13]) <<  8) | ((int16_t)rawdata[12]);
-  dig_P5 = (((int16_t)rawdata[15]) <<  8) | ((int16_t)rawdata[14]);
-  dig_P6 = (((int16_t)rawdata[17]) <<  8) | ((int16_t)rawdata[16]);
-  dig_P7 = (((int16_t)rawdata[19]) <<  8) | ((int16_t)rawdata[18]);
-  dig_P8 = (((int16_t)rawdata[21]) <<  8) | ((int16_t)rawdata[20]);
-  dig_P9 = (((int16_t)rawdata[23]) <<  8) | ((int16_t)rawdata[22]);
+  Wire.begin();
+  Wire.beginTransmission(ADXL345_ADDR);
+  Wire.write(POWER_CTL_REG);
+  Wire.write(0x08);
+  Wire.endTransmission();
 
-  configReg = (0x04 << 5) | (0x04 << 2) | 0x00;
-
-  ctrlReg = (0x02 <<5 ) | (0x05 << 2) | 0x03;
-
-
-  digitalWrite(SPI_C5_PIN, LOW);
-  SPI.transfer(0x75);
-  SPI.transfer(configReg);
-  SPI.transfer(0x74);
-  SPI.transfer(ctrlReg);
-  digitalWrite(SPI_C5_PIN, HIGH);
+  delay(10);
 }
 
-void loop() {
-  digitalWrite(SPI_C5_PIN, LOW);
-  SPI.transfer(0xF7);
-  for (int i = 0; i < 6; i++) {
-    rawdata[i] = SPI.transfer(0x00); }
-    digitalWrite(SPI_C5_PIN, HIGH);
-
-  rawVal = (((uint32_t)rawdata[3]) << 12) |  (((uint32_t)rawdata[4]) << 4) | (((uint32_t)rawdata[5]) << 4);
-  degC = bmp280_compensate_T_int32(rawVal);
-  ddegC = degC / 100.0;
-  Serial.print("Temperatura:  "); Serial.print(ddegC); Serial.println("stC");
-
-  rawVal = (((uint32_t)rawdata[0]) << 12) |  (((uint32_t)rawdata[1]) << 4) | (((uint32_t)rawdata[2]) << 4);
-  press=bmp280_compensate_T_int32(rawVal);
-  dpress = press/100.0;
-  Serial.print("Cisnienie:  "); Serial.print(dpress); Serial.println("hPa");
-
-  delay(3000);
-}
-
-
-BMP280_S32_t bmp280_compensate_T_int32(BMP280_S32_t adc_T)
+void loop()
 {
-  BMP280_S32_t var1, var2, T;
-  var1  = ((((adc_T>>3) - ((BMP280_S32_t)dig_T1<<1))) * ((BMP280_S32_t)dig_T2)) >> 11;
-  var2  = (((((adc_T>>4) - ((BMP280_S32_t)dig_T1)) * ((adc_T>>4) - ((BMP280_S32_t)dig_T1))) >> 12) *    ((BMP280_S32_t)dig_T3)) >> 14;
-  t_fine = var1 + var2;  T  = (t_fine * 5 + 128) >> 8;
-  return T;
-}
-BMP280_U32_t bmp280_compensate_P_int32(BMP280_S32_t adc_P)
-{
-  BMP280_S32_t var1, var2;
-  BMP280_U32_t p;
-  var1 = (((BMP280_S32_t)t_fine)>>1) - (BMP280_S32_t)64000;
-  var2 = (((var1>>2) * (var1>>2)) >> 11 ) * ((BMP280_S32_t)dig_P6);
-  var2 = var2 + ((var1*((BMP280_S32_t)dig_P5))<<1);
-  var2 = (var2>>2)+(((BMP280_S32_t)dig_P4)<<16); 
-  var1 = (((dig_P3 * (((var1>>2) * (var1>>2)) >> 13 )) >> 3) + ((((BMP280_S32_t)dig_P2) * var1)>>1))>>18; 
-  var1 =((((32768+var1))*((BMP280_S32_t)dig_P1))>>15);
-  if (var1 == 0) 
-  {
-    return 0; // avoid exception caused by division by zero 
-  }
-  p = (((BMP280_U32_t)(((BMP280_S32_t)1048576)-adc_P)-(var2>>12)))*3125; 
-  if (p < 0x80000000)
-  {
-    p = (p << 1) / ((BMP280_U32_t)var1);
-  } 
-  else  
-  {
-    p = (p / (BMP280_U32_t)var1) * 2;
-  }
-  var1 = (((BMP280_S32_t)dig_P9) * ((BMP280_S32_t)(((p>>3) * (p>>3))>>13)))>>12; 
-  var2 = (((BMP280_S32_t)(p>>2)) * ((BMP280_S32_t)dig_P8))>>13;
-  p = (BMP280_U32_t)((BMP280_S32_t)p + ((var1 + var2 + dig_P7) >> 4));
-  return p;
+  Wire.beginTransmission(ADXL345_ADDR);
+  Wire.write(0x32);
+  Wire.endTransmission();
+  Wire.requestFrom(ADXL345_ADDR, (uint8_t)0x06, (uint8_t)1);
+
+  aX = (Wire.read() | Wire.read() << 8);
+  aY = (Wire.read() | Wire.read() << 8);
+  aZ = (Wire.read() | Wire.read() << 8);
+
+  dX = aX / 255.0;
+  dY = aY / 255.0;
+  dZ = aZ / 255.0;
+
+  Serial.print("X: ");
+  Serial.print(dX);
+  Serial.print(" Y: ");
+  Serial.print(dY);
+  Serial.print(" Z: ");
+  Serial.println(dZ);
+
+  delay(2000);
 }
