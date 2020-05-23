@@ -14,3 +14,4 @@ Grupa studencka: WELE18X1N1
 
 # Odpowiedzi do pytań z instrukcji
 ...
+3-2-2: Można stworzyć zmienną która będzie przechowywać ilosc przepełnień zmiennej. 
