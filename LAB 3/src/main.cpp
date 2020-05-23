@@ -11,37 +11,70 @@ float voltage;
 
  
  
+
+uint16_t ADCsingleREAD(uint8_t adcToUse) 
+
+{ 
+
+  uint16_t ADCval; 
+
+ 
  
 
-void setup() { 
+  ADMUX = adcToUse; 
 
- Serial.begin(9600); 
+  ADMUX |= (1 << REFS0); 
 
- analogReference(DEFAULT); 
+  ADMUX &= ~(1 << ADLAR); 
 
- pinMode (A0, INPUT); 
+  ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); 
+
+  ADCSRA |= (1 << ADEN); 
+
+  ADCSRA |= (1 << ADSC); 
+
+  while (ADCSRA & (1 << ADSC)) 
+
+    ; 
+
+  ADCval = ADCL; 
+
+  ADCval = (ADCH << 8) + ADCval; 
+
+ 
+ 
+
+  return ADCval; 
 
 } 
 
+void setup() 
+
+{ 
+
+  Serial.begin(9600); 
+
+  } 
+
  
  
 
-void loop() { 
+void loop() 
 
-  digital = analogRead(A0); 
+{  digital = ADCsingleREAD(0); 
 
   voltage = ADC_RESOLUTION_DEFAULT * digital; 
 
-  Serial.print("A0 = " ); 
+Serial.print("A0 = "); 
 
-  Serial.print(digital); 
+Serial.print(digital); 
 
-  Serial.print(" \t V(0) = "); 
+Serial.print(" \t V(0) = "); 
 
-  Serial.print(voltage); 
+Serial.print(voltage); 
 
-  Serial.print(" (V)"); 
+Serial.println(" [V] "); 
 
-  delay(1000); 
+delay(1000); 
 
-} 
+}
