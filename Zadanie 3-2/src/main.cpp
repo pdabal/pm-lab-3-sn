@@ -1,23 +1,20 @@
 #include <Arduino.h>
-#define ADC_RESOLUTION_DEFAULT (5.0f / 1024.0f)
-
-uint16_t digital;
-float voltage;
-
-void setup()
+#define PIN_G 5
+#define PIN_B 6
+#define PIN_R 9
+int r, g, b;
+void setup() 
 {
-  Serial.begin(9600);
-  analogReference(DEFAULT);
-  pinMode(A0, INPUT);
+pinMode(PIN_G, OUTPUT);
+pinMode(PIN_B, OUTPUT);
+pinMode(PIN_R, OUTPUT);
 }
-void loop()
+
+
+void loop() 
 {
-  digital = analogRead(A0);
-  voltage = ADC_RESOLUTION_DEFAULT * digital;
-  Serial.print("A0 = ");
-  Serial.print(digital);
-  Serial.print("\t V(0) = ");
-  Serial.print(voltage);
-  Serial.print(" [V]\n");
-  delay(1000);
-}
+analogWrite(PIN_R, rand());
+analogWrite(PIN_G, rand());
+analogWrite(PIN_B, rand());
+delay(1000);
+} 
