@@ -18,15 +18,15 @@ Grupa studencka: WEL18EX1N1<br/>
 <br/>
 Dodać do w warunku if (linia w kodzie 25) dodatkowy warunek && liczba_nacisniec =< [podać liczbe lub zapisać do zmiennej globalnej określająca ile razy można wcisnąć przycisk] 
 
-To przypadek gdy chcemy zablokować dalsze wciskanie przycisku, a gdy chcemy poinformować użytkownika do środku ifa (linia w kodzie 25) dodać nowy in ze sprawdzeniem czy przekroczono ilość wciśnięć i pointormowąc użytkownika do terminala a następnie wyczyścić zmienna która sprawdzala ilość określonych wciśnięć
+To przypadek gdy chcemy zablokować dalsze wciskanie przycisku, a gdy chcemy poinformować użytkownika do środku ifa (linia w kodzie 25) dodać nowy if ze sprawdzeniem czy przekroczono ilość wciśnięć i pointormowąc użytkownika do terminala a następnie wyczyścić zmienną która sprawdzala ilość określonych wciśnięć
 
 <b> W jaki sposób można zwiększyć liczbę obsługiwanych poleceń oraz liczbę obsługiwanych parametrów?
-<b/>
+</b>
 <br/>
 Dodać do naszej logiki biznesowej kolejny wymyśloną komende którą chcemy obsłużyć 
 <br/>
 else if (!strcmp(paramStr, "[nazwa naszej nowej komendy]")) 
-<br.>
+<br/>
 {
     <br/>
     do your business logic :)
