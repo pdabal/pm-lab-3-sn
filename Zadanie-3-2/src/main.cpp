@@ -1,15 +1,36 @@
 #include <Arduino.h>
 
-uint8_t i=0;
+#define BUTTON 2
 
-void setup()
-{
+int stanPrzycisku;
+int poprzedniStanPrzycisku = LOW;
+unsigned long poprzedniCzas =0;
+unsigned int liczba_nacisniec =0;
+
+void setup(){
   Serial.begin(9600);
-  Serial.println("Witaj rogramisto");
+  pinMode(BUTTON,INPUT);
 }
 
-void loop ()
+void loop()
 {
-  Serial.println(i);
-  delay(2000);
+  int odczyt = digitalRead(BUTTON);
+
+  if (odczyt != poprzedniStanPrzycisku)
+  {
+    poprzedniCzas = millis();
+  }
+
+  if ((millis() - poprzedniCzas) > 50){
+    if (odczyt!= stanPrzycisku){
+      stanPrzycisku = odczyt;
+      if (stanPrzycisku == HIGH){
+        liczba_nacisniec++;
+
+        Serial.print("Liczba nacisciec przycisku: ");
+        Serial.println(liczba_nacisniec);
+      }
+    }
+  }
+  poprzedniStanPrzycisku= odczyt;
 }
