@@ -1,15 +1,19 @@
 #include <Arduino.h>
 
-uint8_t i=0;
+#define BUTTON 2
+uint16_t liczba_nacisniec = 0;
 
 void setup()
 {
   Serial.begin(9600);
-  Serial.println("Witaj rogramisto");
+  pinMode(BUTTON,INPUT);
 }
 
-void loop ()
+void loop()
 {
-  Serial.println(i);
-  delay(2000);
+  if (digitalRead(BUTTON))
+  {
+    Serial.print("Liczba nacisniec przyciskow: ");
+    Serial.println(++liczba_nacisniec);
+  }
 }
