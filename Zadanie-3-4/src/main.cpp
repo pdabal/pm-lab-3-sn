@@ -1,9 +1,40 @@
-#include <Arduino.h>
+#include <Arduino.h> 
 
-void setup() {
-  // put your setup code here, to run once:
-}
+#define PIN_G 5 
 
-void loop() {
-  // put your main code here, to run repeatedly:
+#define PIN_B 6 
+
+#define PIN_R 9 
+
+ 
+ 
+
+int r, g, b; 
+
+ 
+ 
+
+void setup(){ 
+
+  pinMode(PIN_G, OUTPUT); 
+
+  pinMode(PIN_B, OUTPUT); 
+
+  pinMode(PIN_R, OUTPUT); 
+
+} 
+
+ 
+ 
+
+void loop() { 
+
+  analogWrite(PIN_R, rand()); 
+
+  analogWrite(PIN_G, rand()); 
+
+  analogWrite(PIN_B, rand()); 
+
+  delay(1000); 
+
 }
