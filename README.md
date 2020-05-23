@@ -13,4 +13,4 @@ Numer albumu: 12345
 Grupa studencka: WELE18X15N1
 
 # Odpowiedzi do pytań z instrukcji
-...
+aaa
