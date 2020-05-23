@@ -17,3 +17,7 @@ Grupa studencka: WEL18EX1N1
 1. W jaki sposób można rozbudować funkcjonalność programu w przypadku gdy liczba naciśnięć przycisku przekroczy określoną ilość?
 
 Konieczne jest dodanie nowego warunku w instrukcji warunkowej if w lini 41. && liczba_nacisniec =< [tu podejemy liczbe ile razy możemy wciśnąć]
+
+2. W jaki sposób można zwiększyć liczbę obsługiwanych poleceń oraz liczbę obsługiwanych parametrów?
+
+Dodajemy kolejną komende , która będzie obsługiwana przez instrukcjęwarunkową else if (!strcmp(paramStr, "[nowa komenda]"))
