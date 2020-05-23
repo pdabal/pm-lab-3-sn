@@ -13,4 +13,6 @@ Numer albumu: 72706
 Grupa studencka: WEL18EX1N1
 
 # Odpowiedzi do pytań z instrukcji
-...
+Zadanie 3-2-1 -> cyklicznie nie jest wysylana kolejna liczba naturalna, tylko ciagle 0 ponieważ nie występuje w kodzie inkrmeentacja zmiennej i.
+
+
