@@ -78,7 +78,7 @@ void loop() {
 
 } */
 
-#include <Arduino.h> 
+/*#include <Arduino.h> 
 
 #include <stdio.h> 
 
@@ -168,4 +168,6 @@ void loop() {
 
     } 
 
-} 
+} *\
+
+
