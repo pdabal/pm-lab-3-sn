@@ -13,4 +13,5 @@ Numer albumu: 72709
 Grupa studencka: WEL18EX1N1
 
 # Odpowiedzi do pytań z instrukcji
-...
+W jaki sposób można rozbudować funkcjonalność programu w przypadku gdy liczba naciśnięć przycisku przekroczy określoną ilość?
+
