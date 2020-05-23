@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <avr/interrupt.h>
 #define ADC_RESOLUTION_DEFAULT (5.0f / 1024.0f)
 
 uint16_t digital;
@@ -7,13 +8,6 @@ float voltage;
 uint16_t ADCsingleREAD(uint8_t adcToUse)
 {
   uint16_t ADCval;
-  
-  ADMUX = adcToUse;
-  ADMUX |= (1 << REFS0);
-  ADMUX &= ~(1 << ADLAR);
-  ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
-  ADCSRA |= (1 << ADEN);
-  ADCSRA |= (1 << ADSC);
   while (ADCSRA & (1 << ADSC))
     ;
   ADCval = ADCL;
@@ -23,6 +17,15 @@ uint16_t ADCsingleREAD(uint8_t adcToUse)
 }
 void setup()
 {
+  ADMUX = 0;
+  ADMUX |= (1 << REFS0);
+  ADMUX &= ~(1 << ADLAR);
+  ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+  ADCSRA |= (1 << ADEN);
+  ADCSRA |=B01000000;
+  sei();
+ 
+  // Kick off the first ADC
   Serial.begin(9600);
 }
 
@@ -36,4 +39,9 @@ void loop()
   Serial.print(voltage);
   Serial.print(" [V]\n");
   delay(1000);
+}
+
+ISR(ADC_vect)
+{
+    ADCSRA |= (1 << ADSC);
 }
