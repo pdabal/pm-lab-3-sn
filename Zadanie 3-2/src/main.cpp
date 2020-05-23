@@ -1,19 +1,23 @@
 #include <Arduino.h>
+#define ADC_RESOLUTION_DEFAULT (5.0f / 1024.0f)
 
-#define BUTTON 2
-uint16_t liczba_nacisniec = 0;
+uint16_t digital;
+float voltage;
 
 void setup()
 {
   Serial.begin(9600);
-  pinMode(BUTTON,INPUT);
+  analogReference(DEFAULT);
+  pinMode(A0, INPUT);
 }
-
 void loop()
 {
-  if (digitalRead(BUTTON))
-  {
-    Serial.print("Liczba nacisniec przyciskow: ");
-    Serial.println(++liczba_nacisniec);
-  }
-}
+  digital = analogRead(A0);
+  voltage = ADC_RESOLUTION_DEFAULT * digital;
+  Serial.print("A0 = ");
+  Serial.print(digital);
+  Serial.print("\t V(0) = ");
+  Serial.print(voltage);
+  Serial.print(" [V]\n");
+  delay(1000);
+} 
